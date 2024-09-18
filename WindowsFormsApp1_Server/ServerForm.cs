@@ -1,34 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1_Server
 {
     public partial class ServerForm : Form
-    {
+    {        
+        [DllImport("kernel32")]
+        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
+
+        [DllImport("kernel32")]
+        private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
+
+        // Tower lamp, Dll Import
+        [DllImport("QUvc_dll.dll")]
+        public static extern unsafe bool Usb_Qu_write(byte Q_index, byte Q_type, byte[] pQ_data);
+        [DllImport("QUvc_dll.dll")]
+        public static extern void Usb_Qu_Open();
+        [DllImport("QUvc_dll.dll")]
+        public static extern void Usb_Qu_Close();
+        [DllImport("QUvc_dll.dll")]
+        public static extern int Usb_Qu_Getstate();
+
+
+        private string ConfigurePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\Configure\"));
+
         private Socket m_ServerSocket;
         private List<Socket> m_ClientSocket;
         private byte[] szData;
 
+        private const int iEquipmentNo = 5;
+        private Label[] m_UnloaderStateBox;
+        private Label[] m_UnloaderCommStateBox;
+
         // Unloader의 Towerlamp 신호를 저장할 변수 (5대)
-        public string[] strRed;
-        public string[] strYellow;
-        public string[] strGreen;
+        private string[] strRed;
+        private string[] strYellow;
+        private string[] strGreen;
+
+        // 통신 여부
+        private string[] strConn_receivedValue;
+        private string[] strConn_previousValue;
+        private DateTime[] lastReceivedTime;
 
         public ServerForm()
         {
             InitializeComponent();
+
+            m_UnloaderStateBox = new Label[iEquipmentNo] { labl_Unloader1, labl_Unloader2, labl_Unloader3, labl_Unloader4, labl_Unloader5 };
+            m_UnloaderCommStateBox = new Label[iEquipmentNo] { lablUnloader1Conn, lablUnloader2Conn, lablUnloader3Conn, lablUnloader4Conn, lablUnloader5Conn };
 
             _Init_Server();
         }
@@ -38,13 +65,24 @@ namespace WindowsFormsApp1_Server
             Top = 0;
             Left = 0;
 
-            strRed = new string[5];
-            strYellow = new string[5];
-            strGreen = new string[5];
+            strRed = new string[iEquipmentNo];
+            strYellow = new string[iEquipmentNo];
+            strGreen = new string[iEquipmentNo];
+
+            strConn_receivedValue = new string[iEquipmentNo];
+            strConn_previousValue = new string[iEquipmentNo];
+            lastReceivedTime = new DateTime[iEquipmentNo];
+
+            // USB Tower lamp init
+            Usb_Qu_Open();
+
+            _Equipment_Description_Load();
         }
 
         private void ServerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Usb_Qu_Close();
+
             Dispose();            
             Application.ExitThread();
             Environment.Exit(0);
@@ -64,6 +102,33 @@ namespace WindowsFormsApp1_Server
                 BindingFlags.Instance | BindingFlags.NonPublic
             );
             propertyInfo.SetValue(control, doubleBuffered, null);
+        }
+
+        private void _Equipment_Description_Load()
+        {
+            try
+            {
+                // Ini file read
+                StringBuilder sbUnloader = new StringBuilder();
+                GetPrivateProfileString("Unloader_1", "Description", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                textBoxUnloader1.Text = sbUnloader.ToString();
+                
+                GetPrivateProfileString("Unloader_2", "Description", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                textBoxUnloader2.Text = sbUnloader.ToString();
+
+                GetPrivateProfileString("Unloader_3", "Description", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                textBoxUnloader3.Text = sbUnloader.ToString();
+
+                GetPrivateProfileString("Unloader_4", "Description", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                textBoxUnloader4.Text = sbUnloader.ToString();
+
+                GetPrivateProfileString("Unloader_5", "Description", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                textBoxUnloader5.Text = sbUnloader.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void _Init_Server()
@@ -211,40 +276,48 @@ namespace WindowsFormsApp1_Server
             try
             {
                 string[] sWords = strMsg.Split(',');
-                if (sWords[0].Equals("Unloader#1", StringComparison.InvariantCultureIgnoreCase))
+                if (sWords.Length != 5)
+                    return;
+
+                if (sWords[0].Equals("K2022-1101253", StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[0] = sWords[1];      // Red
                     strYellow[0] = sWords[2];   // Yellow
                     strGreen[0] = sWords[3];    // Green
+                    strConn_receivedValue[0] = sWords[4];   // 통신 여부
                 }
-                else if (sWords[0].Equals("Unloader#2", StringComparison.InvariantCultureIgnoreCase))
+                else if (sWords[0].Equals("K2023-1100445", StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[1] = sWords[1];      // Red
                     strYellow[1] = sWords[2];   // Yellow
                     strGreen[1] = sWords[3];    // Green
+                    strConn_receivedValue[1] = sWords[4];   // 통신 여부
                 }
-                else if (sWords[0].Equals("Unloader#3", StringComparison.InvariantCultureIgnoreCase))
+                else if (sWords[0].Equals("K2023-1100333", StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[2] = sWords[1];      // Red
                     strYellow[2] = sWords[2];   // Yellow
                     strGreen[2] = sWords[3];    // Green
+                    strConn_receivedValue[2] = sWords[4];   // 통신 여부
                 }
-                else if (sWords[0].Equals("Unloader#4", StringComparison.InvariantCultureIgnoreCase))
+                else if (sWords[0].Equals("K2023-1100334", StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[3] = sWords[1];      // Red
                     strYellow[3] = sWords[2];   // Yellow
                     strGreen[3] = sWords[3];    // Green
+                    strConn_receivedValue[3] = sWords[4];   // 통신 여부
                 }
-                else if (sWords[0].Equals("Unloader#5", StringComparison.InvariantCultureIgnoreCase))
+                else if (sWords[0].Equals("K2023-1100292", StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[4] = sWords[1];      // Red
                     strYellow[4] = sWords[2];   // Yellow
                     strGreen[4] = sWords[3];    // Green
+                    strConn_receivedValue[4] = sWords[4];   // 통신 여부
                 }
 
 
                 // X-Ray room에서 모니터링
-                _Show_Lamp_UI(strRed, strYellow, strGreen);
+                _Show_Lamp_UI(strRed, strYellow, strGreen, strConn_receivedValue);
             }
             catch (Exception ex)
             {
@@ -252,21 +325,108 @@ namespace WindowsFormsApp1_Server
             }
         }
 
-        private void _Show_Lamp_UI(string[] Red, string[] Yellow, string[] Green)
+        private void _Show_Lamp_UI(string[] Red, string[] Yellow, string[] Green, string[] Conn_receivedValue)
         {
-            if (Red[0] == "True")
-            {
-                panelUnloader1_Red.BackColor = Color.Red;
-            }
-            
-            if (Yellow[0] == "True")
-            {
-                panelUnloader1_Yellow.BackColor = Color.Yellow;
-            }
+            bool[] bUnloaderErr = new bool[5] { false,  false, false, false, false };
 
-            if (Green[0] == "True")
+            // Unloader#1
+            this.labl_Unloader1.Invoke((MethodInvoker)delegate
+            {               
+                for (int i = 0; i < iEquipmentNo; i++)
+                {        
+                    /*
+                    if (Conn_receivedValue[i] != strConn_previousValue[i])
+                    {
+                        strConn_previousValue[i] = Conn_receivedValue[i];
+                        lastReceivedTime[i] = DateTime.Now; // 값이 바뀌면 마지막 수신 시간을 갱신
+                        m_UnloaderCommStateBox[i].Text = "communication";
+                        m_UnloaderCommStateBox[i].ForeColor = Color.Lime;
+                    }
+
+                    if ((DateTime.Now - lastReceivedTime[i]).TotalSeconds > 5)
+                    {
+                        // 5초 이상 값이 바뀌지 않으면 통신 끊어짐
+                        m_UnloaderCommStateBox[i].Text = "No communication";
+                        m_UnloaderCommStateBox[i].ForeColor = Color.Red;
+                    }
+                    */
+
+                    if (Red[i] == "True")
+                    {
+                        m_UnloaderStateBox[i].Text = "Error";
+
+                        if (m_UnloaderStateBox[i].BackColor != Color.Red)
+                            m_UnloaderStateBox[i].BackColor = Color.Red;
+                        else
+                            m_UnloaderStateBox[i].BackColor = Color.Silver;
+
+                        bUnloaderErr[i] = true;
+                    }
+                    else if (Yellow[i] == "True")
+                    {
+                        m_UnloaderStateBox[i].Text = "Idle";
+
+                        if (m_UnloaderStateBox[i].BackColor != Color.Yellow)
+                            m_UnloaderStateBox[i].BackColor = Color.Yellow;
+                    }
+                    else if (Green[i] == "True")
+                    {
+                        m_UnloaderStateBox[i].Text = "Auto Run";
+
+                        if (m_UnloaderStateBox[i].BackColor != Color.Lime)
+                            m_UnloaderStateBox[i].BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        m_UnloaderStateBox[i].Text = "--";
+
+                        if (m_UnloaderStateBox[i].BackColor != Color.Silver)
+                            m_UnloaderStateBox[i].BackColor = Color.Silver;
+                    }
+                }
+
+                if ((bUnloaderErr[0]) || (bUnloaderErr[1]) || (bUnloaderErr[2]) || (bUnloaderErr[3]) || (bUnloaderErr[4]))
+                    Towerlamp_Set(1, 0, 0, 0, 0, 1);
+            });            
+        }
+
+        private void Towerlamp_Set(byte Red, byte Yellow, byte Green, byte Blue, byte White, byte Sound)
+        {
+            try
             {
-                panelUnloader1_Green.BackColor = Color.Blue;
+                byte[] bAcon = new byte[6];
+                bAcon[0] = Red;
+                bAcon[1] = Yellow;
+                bAcon[2] = Green;
+                bAcon[3] = Blue;
+                bAcon[4] = White;
+                bAcon[5] = Sound;
+
+                //Usb_Qu_write(0, 0, bAcon);
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                WritePrivateProfileString("Unloader_1", "Description", textBoxUnloader1.Text.ToString(), string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                WritePrivateProfileString("Unloader_2", "Description", textBoxUnloader2.Text.ToString(), string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                WritePrivateProfileString("Unloader_3", "Description", textBoxUnloader3.Text.ToString(), string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                WritePrivateProfileString("Unloader_4", "Description", textBoxUnloader4.Text.ToString(), string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                WritePrivateProfileString("Unloader_5", "Description", textBoxUnloader5.Text.ToString(), string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+
+                _Equipment_Description_Load();
+
+                MessageBox.Show($"장비 메모 저장 완료!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

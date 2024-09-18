@@ -32,9 +32,27 @@
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBoxServerStatus = new System.Windows.Forms.RichTextBox();
             this.richTextBoxRecvMsg = new System.Windows.Forms.RichTextBox();
-            this.panelUnloader1_Red = new System.Windows.Forms.Panel();
-            this.panelUnloader1_Yellow = new System.Windows.Forms.Panel();
-            this.panelUnloader1_Green = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labl_Unloader1 = new System.Windows.Forms.Label();
+            this.labl_Unloader2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.labl_Unloader3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labl_Unloader4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.labl_Unloader5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxUnloader1 = new System.Windows.Forms.TextBox();
+            this.textBoxUnloader2 = new System.Windows.Forms.TextBox();
+            this.textBoxUnloader3 = new System.Windows.Forms.TextBox();
+            this.textBoxUnloader4 = new System.Windows.Forms.TextBox();
+            this.textBoxUnloader5 = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.lablUnloader1Conn = new System.Windows.Forms.Label();
+            this.lablUnloader2Conn = new System.Windows.Forms.Label();
+            this.lablUnloader3Conn = new System.Windows.Forms.Label();
+            this.lablUnloader4Conn = new System.Windows.Forms.Label();
+            this.lablUnloader5Conn = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label2
@@ -42,7 +60,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(465, 743);
+            this.label2.Location = new System.Drawing.Point(465, 813);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(212, 17);
             this.label2.TabIndex = 15;
@@ -53,7 +71,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(9, 743);
+            this.label1.Location = new System.Drawing.Point(9, 813);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 17);
             this.label1.TabIndex = 14;
@@ -63,10 +81,10 @@
             // 
             this.richTextBoxServerStatus.BackColor = System.Drawing.Color.White;
             this.richTextBoxServerStatus.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxServerStatus.Location = new System.Drawing.Point(12, 763);
+            this.richTextBoxServerStatus.Location = new System.Drawing.Point(12, 833);
             this.richTextBoxServerStatus.Name = "richTextBoxServerStatus";
             this.richTextBoxServerStatus.ReadOnly = true;
-            this.richTextBoxServerStatus.Size = new System.Drawing.Size(450, 210);
+            this.richTextBoxServerStatus.Size = new System.Drawing.Size(450, 140);
             this.richTextBoxServerStatus.TabIndex = 13;
             this.richTextBoxServerStatus.Text = "";
             // 
@@ -74,48 +92,277 @@
             // 
             this.richTextBoxRecvMsg.BackColor = System.Drawing.Color.White;
             this.richTextBoxRecvMsg.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxRecvMsg.Location = new System.Drawing.Point(468, 763);
+            this.richTextBoxRecvMsg.Location = new System.Drawing.Point(468, 833);
             this.richTextBoxRecvMsg.Name = "richTextBoxRecvMsg";
             this.richTextBoxRecvMsg.ReadOnly = true;
-            this.richTextBoxRecvMsg.Size = new System.Drawing.Size(790, 210);
+            this.richTextBoxRecvMsg.Size = new System.Drawing.Size(790, 140);
             this.richTextBoxRecvMsg.TabIndex = 12;
             this.richTextBoxRecvMsg.Text = "";
             // 
-            // panelUnloader1_Red
+            // label3
             // 
-            this.panelUnloader1_Red.BackColor = System.Drawing.Color.White;
-            this.panelUnloader1_Red.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelUnloader1_Red.Location = new System.Drawing.Point(12, 12);
-            this.panelUnloader1_Red.Name = "panelUnloader1_Red";
-            this.panelUnloader1_Red.Size = new System.Drawing.Size(200, 100);
-            this.panelUnloader1_Red.TabIndex = 16;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Navy;
+            this.label3.Location = new System.Drawing.Point(12, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(222, 37);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "K2022-1101253";
             // 
-            // panelUnloader1_Yellow
+            // labl_Unloader1
             // 
-            this.panelUnloader1_Yellow.BackColor = System.Drawing.Color.White;
-            this.panelUnloader1_Yellow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelUnloader1_Yellow.Location = new System.Drawing.Point(12, 118);
-            this.panelUnloader1_Yellow.Name = "panelUnloader1_Yellow";
-            this.panelUnloader1_Yellow.Size = new System.Drawing.Size(200, 100);
-            this.panelUnloader1_Yellow.TabIndex = 17;
+            this.labl_Unloader1.BackColor = System.Drawing.Color.Silver;
+            this.labl_Unloader1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labl_Unloader1.Font = new System.Drawing.Font("Nirmala UI", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labl_Unloader1.ForeColor = System.Drawing.Color.White;
+            this.labl_Unloader1.Location = new System.Drawing.Point(12, 46);
+            this.labl_Unloader1.Name = "labl_Unloader1";
+            this.labl_Unloader1.Size = new System.Drawing.Size(1240, 120);
+            this.labl_Unloader1.TabIndex = 20;
+            this.labl_Unloader1.Text = "--";
+            this.labl_Unloader1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelUnloader1_Green
+            // labl_Unloader2
             // 
-            this.panelUnloader1_Green.BackColor = System.Drawing.Color.White;
-            this.panelUnloader1_Green.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelUnloader1_Green.Location = new System.Drawing.Point(12, 224);
-            this.panelUnloader1_Green.Name = "panelUnloader1_Green";
-            this.panelUnloader1_Green.Size = new System.Drawing.Size(200, 100);
-            this.panelUnloader1_Green.TabIndex = 18;
+            this.labl_Unloader2.BackColor = System.Drawing.Color.Silver;
+            this.labl_Unloader2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labl_Unloader2.Font = new System.Drawing.Font("Nirmala UI", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labl_Unloader2.ForeColor = System.Drawing.Color.White;
+            this.labl_Unloader2.Location = new System.Drawing.Point(12, 205);
+            this.labl_Unloader2.Name = "labl_Unloader2";
+            this.labl_Unloader2.Size = new System.Drawing.Size(1240, 120);
+            this.labl_Unloader2.TabIndex = 22;
+            this.labl_Unloader2.Text = "--";
+            this.labl_Unloader2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Navy;
+            this.label4.Location = new System.Drawing.Point(12, 168);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(222, 37);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "K2023-1100445";
+            // 
+            // labl_Unloader3
+            // 
+            this.labl_Unloader3.BackColor = System.Drawing.Color.Silver;
+            this.labl_Unloader3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labl_Unloader3.Font = new System.Drawing.Font("Nirmala UI", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labl_Unloader3.ForeColor = System.Drawing.Color.White;
+            this.labl_Unloader3.Location = new System.Drawing.Point(12, 364);
+            this.labl_Unloader3.Name = "labl_Unloader3";
+            this.labl_Unloader3.Size = new System.Drawing.Size(1240, 120);
+            this.labl_Unloader3.TabIndex = 24;
+            this.labl_Unloader3.Text = "--";
+            this.labl_Unloader3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Navy;
+            this.label5.Location = new System.Drawing.Point(5, 327);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(222, 37);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "K2023-1100333";
+            // 
+            // labl_Unloader4
+            // 
+            this.labl_Unloader4.BackColor = System.Drawing.Color.Silver;
+            this.labl_Unloader4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labl_Unloader4.Font = new System.Drawing.Font("Nirmala UI", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labl_Unloader4.ForeColor = System.Drawing.Color.White;
+            this.labl_Unloader4.Location = new System.Drawing.Point(12, 523);
+            this.labl_Unloader4.Name = "labl_Unloader4";
+            this.labl_Unloader4.Size = new System.Drawing.Size(1240, 120);
+            this.labl_Unloader4.TabIndex = 26;
+            this.labl_Unloader4.Text = "--";
+            this.labl_Unloader4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Navy;
+            this.label6.Location = new System.Drawing.Point(12, 486);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(222, 37);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "K2023-1100334";
+            // 
+            // labl_Unloader5
+            // 
+            this.labl_Unloader5.BackColor = System.Drawing.Color.Silver;
+            this.labl_Unloader5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labl_Unloader5.Font = new System.Drawing.Font("Nirmala UI", 50.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labl_Unloader5.ForeColor = System.Drawing.Color.White;
+            this.labl_Unloader5.Location = new System.Drawing.Point(12, 682);
+            this.labl_Unloader5.Name = "labl_Unloader5";
+            this.labl_Unloader5.Size = new System.Drawing.Size(1240, 120);
+            this.labl_Unloader5.TabIndex = 28;
+            this.labl_Unloader5.Text = "--";
+            this.labl_Unloader5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Navy;
+            this.label7.Location = new System.Drawing.Point(12, 645);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(222, 37);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "K2023-1100292";
+            // 
+            // textBoxUnloader1
+            // 
+            this.textBoxUnloader1.BackColor = System.Drawing.Color.Beige;
+            this.textBoxUnloader1.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUnloader1.ForeColor = System.Drawing.Color.Black;
+            this.textBoxUnloader1.Location = new System.Drawing.Point(240, 9);
+            this.textBoxUnloader1.Name = "textBoxUnloader1";
+            this.textBoxUnloader1.Size = new System.Drawing.Size(510, 35);
+            this.textBoxUnloader1.TabIndex = 29;
+            // 
+            // textBoxUnloader2
+            // 
+            this.textBoxUnloader2.BackColor = System.Drawing.Color.Beige;
+            this.textBoxUnloader2.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUnloader2.ForeColor = System.Drawing.Color.Black;
+            this.textBoxUnloader2.Location = new System.Drawing.Point(240, 168);
+            this.textBoxUnloader2.Name = "textBoxUnloader2";
+            this.textBoxUnloader2.Size = new System.Drawing.Size(510, 35);
+            this.textBoxUnloader2.TabIndex = 30;
+            // 
+            // textBoxUnloader3
+            // 
+            this.textBoxUnloader3.BackColor = System.Drawing.Color.Beige;
+            this.textBoxUnloader3.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUnloader3.ForeColor = System.Drawing.Color.Black;
+            this.textBoxUnloader3.Location = new System.Drawing.Point(240, 327);
+            this.textBoxUnloader3.Name = "textBoxUnloader3";
+            this.textBoxUnloader3.Size = new System.Drawing.Size(510, 35);
+            this.textBoxUnloader3.TabIndex = 31;
+            // 
+            // textBoxUnloader4
+            // 
+            this.textBoxUnloader4.BackColor = System.Drawing.Color.Beige;
+            this.textBoxUnloader4.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUnloader4.ForeColor = System.Drawing.Color.Black;
+            this.textBoxUnloader4.Location = new System.Drawing.Point(240, 486);
+            this.textBoxUnloader4.Name = "textBoxUnloader4";
+            this.textBoxUnloader4.Size = new System.Drawing.Size(510, 35);
+            this.textBoxUnloader4.TabIndex = 32;
+            // 
+            // textBoxUnloader5
+            // 
+            this.textBoxUnloader5.BackColor = System.Drawing.Color.Beige;
+            this.textBoxUnloader5.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUnloader5.ForeColor = System.Drawing.Color.Black;
+            this.textBoxUnloader5.Location = new System.Drawing.Point(240, 645);
+            this.textBoxUnloader5.Name = "textBoxUnloader5";
+            this.textBoxUnloader5.Size = new System.Drawing.Size(510, 35);
+            this.textBoxUnloader5.TabIndex = 33;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = System.Drawing.Color.Navy;
+            this.btnSave.Location = new System.Drawing.Point(756, 9);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(100, 35);
+            this.btnSave.TabIndex = 34;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // lablUnloader1Conn
+            // 
+            this.lablUnloader1Conn.AutoSize = true;
+            this.lablUnloader1Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lablUnloader1Conn.ForeColor = System.Drawing.Color.Red;
+            this.lablUnloader1Conn.Location = new System.Drawing.Point(1049, 9);
+            this.lablUnloader1Conn.Name = "lablUnloader1Conn";
+            this.lablUnloader1Conn.Size = new System.Drawing.Size(203, 30);
+            this.lablUnloader1Conn.TabIndex = 35;
+            this.lablUnloader1Conn.Text = "No communication";
+            // 
+            // lablUnloader2Conn
+            // 
+            this.lablUnloader2Conn.AutoSize = true;
+            this.lablUnloader2Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lablUnloader2Conn.ForeColor = System.Drawing.Color.Red;
+            this.lablUnloader2Conn.Location = new System.Drawing.Point(1049, 168);
+            this.lablUnloader2Conn.Name = "lablUnloader2Conn";
+            this.lablUnloader2Conn.Size = new System.Drawing.Size(203, 30);
+            this.lablUnloader2Conn.TabIndex = 36;
+            this.lablUnloader2Conn.Text = "No communication";
+            // 
+            // lablUnloader3Conn
+            // 
+            this.lablUnloader3Conn.AutoSize = true;
+            this.lablUnloader3Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lablUnloader3Conn.ForeColor = System.Drawing.Color.Red;
+            this.lablUnloader3Conn.Location = new System.Drawing.Point(1049, 327);
+            this.lablUnloader3Conn.Name = "lablUnloader3Conn";
+            this.lablUnloader3Conn.Size = new System.Drawing.Size(203, 30);
+            this.lablUnloader3Conn.TabIndex = 37;
+            this.lablUnloader3Conn.Text = "No communication";
+            // 
+            // lablUnloader4Conn
+            // 
+            this.lablUnloader4Conn.AutoSize = true;
+            this.lablUnloader4Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lablUnloader4Conn.ForeColor = System.Drawing.Color.Red;
+            this.lablUnloader4Conn.Location = new System.Drawing.Point(1049, 486);
+            this.lablUnloader4Conn.Name = "lablUnloader4Conn";
+            this.lablUnloader4Conn.Size = new System.Drawing.Size(203, 30);
+            this.lablUnloader4Conn.TabIndex = 38;
+            this.lablUnloader4Conn.Text = "No communication";
+            // 
+            // lablUnloader5Conn
+            // 
+            this.lablUnloader5Conn.AutoSize = true;
+            this.lablUnloader5Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lablUnloader5Conn.ForeColor = System.Drawing.Color.Red;
+            this.lablUnloader5Conn.Location = new System.Drawing.Point(1049, 645);
+            this.lablUnloader5Conn.Name = "lablUnloader5Conn";
+            this.lablUnloader5Conn.Size = new System.Drawing.Size(203, 30);
+            this.lablUnloader5Conn.TabIndex = 39;
+            this.lablUnloader5Conn.Text = "No communication";
             // 
             // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1264, 985);
-            this.Controls.Add(this.panelUnloader1_Green);
-            this.Controls.Add(this.panelUnloader1_Yellow);
-            this.Controls.Add(this.panelUnloader1_Red);
+            this.Controls.Add(this.lablUnloader5Conn);
+            this.Controls.Add(this.lablUnloader4Conn);
+            this.Controls.Add(this.lablUnloader3Conn);
+            this.Controls.Add(this.lablUnloader2Conn);
+            this.Controls.Add(this.lablUnloader1Conn);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.textBoxUnloader5);
+            this.Controls.Add(this.textBoxUnloader4);
+            this.Controls.Add(this.textBoxUnloader3);
+            this.Controls.Add(this.textBoxUnloader2);
+            this.Controls.Add(this.textBoxUnloader1);
+            this.Controls.Add(this.labl_Unloader5);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.labl_Unloader4);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.labl_Unloader3);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labl_Unloader2);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.labl_Unloader1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.richTextBoxServerStatus);
@@ -136,9 +383,27 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBoxServerStatus;
         private System.Windows.Forms.RichTextBox richTextBoxRecvMsg;
-        private System.Windows.Forms.Panel panelUnloader1_Red;
-        private System.Windows.Forms.Panel panelUnloader1_Yellow;
-        private System.Windows.Forms.Panel panelUnloader1_Green;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labl_Unloader1;
+        private System.Windows.Forms.Label labl_Unloader2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labl_Unloader3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labl_Unloader4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labl_Unloader5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxUnloader1;
+        private System.Windows.Forms.TextBox textBoxUnloader2;
+        private System.Windows.Forms.TextBox textBoxUnloader3;
+        private System.Windows.Forms.TextBox textBoxUnloader4;
+        private System.Windows.Forms.TextBox textBoxUnloader5;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lablUnloader1Conn;
+        private System.Windows.Forms.Label lablUnloader2Conn;
+        private System.Windows.Forms.Label lablUnloader3Conn;
+        private System.Windows.Forms.Label lablUnloader4Conn;
+        private System.Windows.Forms.Label lablUnloader5Conn;
     }
 }
 
