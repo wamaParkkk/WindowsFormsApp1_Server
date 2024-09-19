@@ -53,6 +53,7 @@
             this.lablUnloader3Conn = new System.Windows.Forms.Label();
             this.lablUnloader4Conn = new System.Windows.Forms.Label();
             this.lablUnloader5Conn = new System.Windows.Forms.Label();
+            this.btnBuzzerOff = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -291,6 +292,7 @@
             this.lablUnloader1Conn.Size = new System.Drawing.Size(203, 30);
             this.lablUnloader1Conn.TabIndex = 35;
             this.lablUnloader1Conn.Text = "No communication";
+            this.lablUnloader1Conn.Visible = false;
             // 
             // lablUnloader2Conn
             // 
@@ -302,6 +304,7 @@
             this.lablUnloader2Conn.Size = new System.Drawing.Size(203, 30);
             this.lablUnloader2Conn.TabIndex = 36;
             this.lablUnloader2Conn.Text = "No communication";
+            this.lablUnloader2Conn.Visible = false;
             // 
             // lablUnloader3Conn
             // 
@@ -313,6 +316,7 @@
             this.lablUnloader3Conn.Size = new System.Drawing.Size(203, 30);
             this.lablUnloader3Conn.TabIndex = 37;
             this.lablUnloader3Conn.Text = "No communication";
+            this.lablUnloader3Conn.Visible = false;
             // 
             // lablUnloader4Conn
             // 
@@ -324,6 +328,7 @@
             this.lablUnloader4Conn.Size = new System.Drawing.Size(203, 30);
             this.lablUnloader4Conn.TabIndex = 38;
             this.lablUnloader4Conn.Text = "No communication";
+            this.lablUnloader4Conn.Visible = false;
             // 
             // lablUnloader5Conn
             // 
@@ -335,6 +340,19 @@
             this.lablUnloader5Conn.Size = new System.Drawing.Size(203, 30);
             this.lablUnloader5Conn.TabIndex = 39;
             this.lablUnloader5Conn.Text = "No communication";
+            this.lablUnloader5Conn.Visible = false;
+            // 
+            // btnBuzzerOff
+            // 
+            this.btnBuzzerOff.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuzzerOff.ForeColor = System.Drawing.Color.Red;
+            this.btnBuzzerOff.Location = new System.Drawing.Point(893, 9);
+            this.btnBuzzerOff.Name = "btnBuzzerOff";
+            this.btnBuzzerOff.Size = new System.Drawing.Size(150, 35);
+            this.btnBuzzerOff.TabIndex = 40;
+            this.btnBuzzerOff.Text = "Buzzer off";
+            this.btnBuzzerOff.UseVisualStyleBackColor = true;
+            this.btnBuzzerOff.Click += new System.EventHandler(this.btnBuzzerOff_Click);
             // 
             // ServerForm
             // 
@@ -342,6 +360,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1264, 985);
+            this.Controls.Add(this.btnBuzzerOff);
             this.Controls.Add(this.lablUnloader5Conn);
             this.Controls.Add(this.lablUnloader4Conn);
             this.Controls.Add(this.lablUnloader3Conn);
@@ -404,6 +423,7 @@
         private System.Windows.Forms.Label lablUnloader3Conn;
         private System.Windows.Forms.Label lablUnloader4Conn;
         private System.Windows.Forms.Label lablUnloader5Conn;
+        private System.Windows.Forms.Button btnBuzzerOff;
     }
 }
 

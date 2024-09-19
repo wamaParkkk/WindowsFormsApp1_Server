@@ -368,6 +368,8 @@ namespace WindowsFormsApp1_Server
 
                         if (m_UnloaderStateBox[i].BackColor != Color.Yellow)
                             m_UnloaderStateBox[i].BackColor = Color.Yellow;
+
+                        bUnloaderErr[i] = false;
                     }
                     else if (Green[i] == "True")
                     {
@@ -375,18 +377,29 @@ namespace WindowsFormsApp1_Server
 
                         if (m_UnloaderStateBox[i].BackColor != Color.Lime)
                             m_UnloaderStateBox[i].BackColor = Color.Lime;
+
+                        bUnloaderErr[i] = false;
                     }
-                    else
+                    else if ((Red[i] == "False") && (Yellow[i] == "False") && (Green[i] == "False"))
                     {
-                        m_UnloaderStateBox[i].Text = "--";
+                        m_UnloaderStateBox[i].Text = "No signal";
 
                         if (m_UnloaderStateBox[i].BackColor != Color.Silver)
                             m_UnloaderStateBox[i].BackColor = Color.Silver;
+
+                        bUnloaderErr[i] = false;
                     }
                 }
 
                 if ((bUnloaderErr[0]) || (bUnloaderErr[1]) || (bUnloaderErr[2]) || (bUnloaderErr[3]) || (bUnloaderErr[4]))
+                {
                     Towerlamp_Set(1, 0, 0, 0, 0, 1);
+                }
+                else
+                {
+                    Towerlamp_Set(0, 0, 1, 0, 0, 0);
+                }
+                    
             });            
         }
 
@@ -402,7 +415,7 @@ namespace WindowsFormsApp1_Server
                 bAcon[4] = White;
                 bAcon[5] = Sound;
 
-                //Usb_Qu_write(0, 0, bAcon);
+                Usb_Qu_write(0, 0, bAcon);
             }
             catch
             {
@@ -428,6 +441,11 @@ namespace WindowsFormsApp1_Server
             {
                 MessageBox.Show(ex.Message, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnBuzzerOff_Click(object sender, EventArgs e)
+        {
+            Towerlamp_Set(0, 0, 0, 0, 0, 0);
         }
     }
 }
