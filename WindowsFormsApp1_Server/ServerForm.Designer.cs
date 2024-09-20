@@ -48,11 +48,6 @@
             this.textBoxUnloader4 = new System.Windows.Forms.TextBox();
             this.textBoxUnloader5 = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.lablUnloader1Conn = new System.Windows.Forms.Label();
-            this.lablUnloader2Conn = new System.Windows.Forms.Label();
-            this.lablUnloader3Conn = new System.Windows.Forms.Label();
-            this.lablUnloader4Conn = new System.Windows.Forms.Label();
-            this.lablUnloader5Conn = new System.Windows.Forms.Label();
             this.btnBuzzerOff = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -282,71 +277,11 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // lablUnloader1Conn
-            // 
-            this.lablUnloader1Conn.AutoSize = true;
-            this.lablUnloader1Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lablUnloader1Conn.ForeColor = System.Drawing.Color.Red;
-            this.lablUnloader1Conn.Location = new System.Drawing.Point(1049, 9);
-            this.lablUnloader1Conn.Name = "lablUnloader1Conn";
-            this.lablUnloader1Conn.Size = new System.Drawing.Size(203, 30);
-            this.lablUnloader1Conn.TabIndex = 35;
-            this.lablUnloader1Conn.Text = "No communication";
-            this.lablUnloader1Conn.Visible = false;
-            // 
-            // lablUnloader2Conn
-            // 
-            this.lablUnloader2Conn.AutoSize = true;
-            this.lablUnloader2Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lablUnloader2Conn.ForeColor = System.Drawing.Color.Red;
-            this.lablUnloader2Conn.Location = new System.Drawing.Point(1049, 168);
-            this.lablUnloader2Conn.Name = "lablUnloader2Conn";
-            this.lablUnloader2Conn.Size = new System.Drawing.Size(203, 30);
-            this.lablUnloader2Conn.TabIndex = 36;
-            this.lablUnloader2Conn.Text = "No communication";
-            this.lablUnloader2Conn.Visible = false;
-            // 
-            // lablUnloader3Conn
-            // 
-            this.lablUnloader3Conn.AutoSize = true;
-            this.lablUnloader3Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lablUnloader3Conn.ForeColor = System.Drawing.Color.Red;
-            this.lablUnloader3Conn.Location = new System.Drawing.Point(1049, 327);
-            this.lablUnloader3Conn.Name = "lablUnloader3Conn";
-            this.lablUnloader3Conn.Size = new System.Drawing.Size(203, 30);
-            this.lablUnloader3Conn.TabIndex = 37;
-            this.lablUnloader3Conn.Text = "No communication";
-            this.lablUnloader3Conn.Visible = false;
-            // 
-            // lablUnloader4Conn
-            // 
-            this.lablUnloader4Conn.AutoSize = true;
-            this.lablUnloader4Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lablUnloader4Conn.ForeColor = System.Drawing.Color.Red;
-            this.lablUnloader4Conn.Location = new System.Drawing.Point(1049, 486);
-            this.lablUnloader4Conn.Name = "lablUnloader4Conn";
-            this.lablUnloader4Conn.Size = new System.Drawing.Size(203, 30);
-            this.lablUnloader4Conn.TabIndex = 38;
-            this.lablUnloader4Conn.Text = "No communication";
-            this.lablUnloader4Conn.Visible = false;
-            // 
-            // lablUnloader5Conn
-            // 
-            this.lablUnloader5Conn.AutoSize = true;
-            this.lablUnloader5Conn.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lablUnloader5Conn.ForeColor = System.Drawing.Color.Red;
-            this.lablUnloader5Conn.Location = new System.Drawing.Point(1049, 645);
-            this.lablUnloader5Conn.Name = "lablUnloader5Conn";
-            this.lablUnloader5Conn.Size = new System.Drawing.Size(203, 30);
-            this.lablUnloader5Conn.TabIndex = 39;
-            this.lablUnloader5Conn.Text = "No communication";
-            this.lablUnloader5Conn.Visible = false;
-            // 
             // btnBuzzerOff
             // 
             this.btnBuzzerOff.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuzzerOff.ForeColor = System.Drawing.Color.Red;
-            this.btnBuzzerOff.Location = new System.Drawing.Point(893, 9);
+            this.btnBuzzerOff.Location = new System.Drawing.Point(1102, 9);
             this.btnBuzzerOff.Name = "btnBuzzerOff";
             this.btnBuzzerOff.Size = new System.Drawing.Size(150, 35);
             this.btnBuzzerOff.TabIndex = 40;
@@ -361,11 +296,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1264, 985);
             this.Controls.Add(this.btnBuzzerOff);
-            this.Controls.Add(this.lablUnloader5Conn);
-            this.Controls.Add(this.lablUnloader4Conn);
-            this.Controls.Add(this.lablUnloader3Conn);
-            this.Controls.Add(this.lablUnloader2Conn);
-            this.Controls.Add(this.lablUnloader1Conn);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.textBoxUnloader5);
             this.Controls.Add(this.textBoxUnloader4);
@@ -418,11 +348,6 @@
         private System.Windows.Forms.TextBox textBoxUnloader4;
         private System.Windows.Forms.TextBox textBoxUnloader5;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lablUnloader1Conn;
-        private System.Windows.Forms.Label lablUnloader2Conn;
-        private System.Windows.Forms.Label lablUnloader3Conn;
-        private System.Windows.Forms.Label lablUnloader4Conn;
-        private System.Windows.Forms.Label lablUnloader5Conn;
         private System.Windows.Forms.Button btnBuzzerOff;
     }
 }

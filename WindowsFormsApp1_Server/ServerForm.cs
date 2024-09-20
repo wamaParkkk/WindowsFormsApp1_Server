@@ -37,8 +37,7 @@ namespace WindowsFormsApp1_Server
         private byte[] szData;
 
         private const int iEquipmentNo = 5;
-        private Label[] m_UnloaderStateBox;
-        private Label[] m_UnloaderCommStateBox;
+        private Label[] m_UnloaderStateBox;        
 
         // Unloader의 Towerlamp 신호를 저장할 변수 (5대)
         private string[] strRed;
@@ -50,12 +49,13 @@ namespace WindowsFormsApp1_Server
         private string[] strConn_previousValue;
         private DateTime[] lastReceivedTime;
 
+        private bool bLampSet;
+
         public ServerForm()
         {
             InitializeComponent();
 
-            m_UnloaderStateBox = new Label[iEquipmentNo] { labl_Unloader1, labl_Unloader2, labl_Unloader3, labl_Unloader4, labl_Unloader5 };
-            m_UnloaderCommStateBox = new Label[iEquipmentNo] { lablUnloader1Conn, lablUnloader2Conn, lablUnloader3Conn, lablUnloader4Conn, lablUnloader5Conn };
+            m_UnloaderStateBox = new Label[iEquipmentNo] { labl_Unloader1, labl_Unloader2, labl_Unloader3, labl_Unloader4, labl_Unloader5 };            
 
             _Init_Server();
         }
@@ -74,7 +74,7 @@ namespace WindowsFormsApp1_Server
             lastReceivedTime = new DateTime[iEquipmentNo];
 
             // USB Tower lamp init
-            Usb_Qu_Open();
+            _USB_Tower_lamp_init();            
 
             _Equipment_Description_Load();
         }
@@ -104,6 +104,21 @@ namespace WindowsFormsApp1_Server
             propertyInfo.SetValue(control, doubleBuffered, null);
         }
 
+        private void _USB_Tower_lamp_init()
+        {
+            try
+            {
+                Usb_Qu_Open();
+
+                Towerlamp_Set(0, 0, 1, 0, 0, 0);
+                bLampSet = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"USB Tower lamp init : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void _Equipment_Description_Load()
         {
             try
@@ -127,29 +142,36 @@ namespace WindowsFormsApp1_Server
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Equipment Description Load : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void _Init_Server()
         {
-            m_ClientSocket = new List<Socket>();
-            m_ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                m_ClientSocket = new List<Socket>();
+                m_ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            // Server IP 및 Port
-            IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Any, 8000);
+                // Server IP 및 Port
+                IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Any, 8000);
 
-            // Server binding
-            m_ServerSocket.Bind(iPEndPoint);
-            m_ServerSocket.Listen(10);
+                // Server binding
+                m_ServerSocket.Bind(iPEndPoint);
+                m_ServerSocket.Listen(10);
 
-            // Socket event
-            SocketAsyncEventArgs socketAsyncEventArgs = new SocketAsyncEventArgs();
-            // Event 발생 시, Accept_Completed 함수 실행
-            socketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(_Accept_Completed);
+                // Socket event
+                SocketAsyncEventArgs socketAsyncEventArgs = new SocketAsyncEventArgs();
+                // Event 발생 시, Accept_Completed 함수 실행
+                socketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(_Accept_Completed);
 
-            // Waiting for client connection
-            m_ServerSocket.AcceptAsync(socketAsyncEventArgs);            
+                // Waiting for client connection
+                m_ServerSocket.AcceptAsync(socketAsyncEventArgs);
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show($"Init Server : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }                        
         }
 
         /*
@@ -157,30 +179,37 @@ namespace WindowsFormsApp1_Server
          */
         private void _Accept_Completed(object sender, SocketAsyncEventArgs e)
         {
-            Socket clientSocket = e.AcceptSocket;
-
-            // 요청 Socket을 수락 후 리스트에 추가
-            m_ClientSocket.Add(clientSocket);
-
-            if (m_ClientSocket != null)
+            try
             {
-                DisplayText_ServerStatus("<< " + clientSocket.RemoteEndPoint.ToString() + " >>" + " is connected");
+                Socket clientSocket = e.AcceptSocket;
 
-                SocketAsyncEventArgs socketAsyncEventArgs = new SocketAsyncEventArgs();
+                // 요청 Socket을 수락 후 리스트에 추가
+                m_ClientSocket.Add(clientSocket);
 
-                // 수신용 buffer 할당
-                szData = new byte[1024];
-                socketAsyncEventArgs.SetBuffer(szData, 0, 1024);
-                socketAsyncEventArgs.UserToken = m_ClientSocket;
-                socketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(_Receive_Completed);
+                if (m_ClientSocket != null)
+                {
+                    DisplayText_ServerStatus("<< " + clientSocket.RemoteEndPoint.ToString() + " >>" + " is connected");
 
-                // 수락 된 Socket의 데이터 수신 대기
-                clientSocket.ReceiveAsync(socketAsyncEventArgs);
+                    SocketAsyncEventArgs socketAsyncEventArgs = new SocketAsyncEventArgs();
+
+                    // 수신용 buffer 할당
+                    szData = new byte[1024];
+                    socketAsyncEventArgs.SetBuffer(szData, 0, 1024);
+                    socketAsyncEventArgs.UserToken = m_ClientSocket;
+                    socketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(_Receive_Completed);
+
+                    // 수락 된 Socket의 데이터 수신 대기
+                    clientSocket.ReceiveAsync(socketAsyncEventArgs);
+                }
+
+                e.AcceptSocket = null;
+                // 요청 Socket 처리 후 다시 수락 대기
+                m_ServerSocket.AcceptAsync(e);
             }
-
-            e.AcceptSocket = null;
-            // 요청 Socket 처리 후 다시 수락 대기
-            m_ServerSocket.AcceptAsync(e);
+            catch (SocketException ex)
+            {
+                MessageBox.Show($"Accept Completed : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /*
@@ -188,86 +217,107 @@ namespace WindowsFormsApp1_Server
          */
         private void _Receive_Completed(object sender, SocketAsyncEventArgs e)
         {
-            Socket clientSocket = (Socket)sender;
-
-            // 해당 Socket의 접속 유무 확인 후 false면 Socket을 닫음
-            if (clientSocket.Connected && e.BytesTransferred > 0)
+            try
             {
-                // Data receive                
-                byte[] szData = e.Buffer;
-                string strData = Encoding.Unicode.GetString(szData);
-                string[] arrayStr = strData.Split(';');
-                string sParsingData = arrayStr[0];
-                string recvMsg = sParsingData.Replace("\0", "").Trim();
-                DisplayText("<< " + clientSocket.RemoteEndPoint.ToString() + " >>" + recvMsg);
+                Socket clientSocket = (Socket)sender;
 
-                _DATA_PARSING(recvMsg);
-
-                for (int i = 0; i < szData.Length; i++)
+                // 해당 Socket의 접속 유무 확인 후 false면 Socket을 닫음
+                if (clientSocket.Connected && e.BytesTransferred > 0)
                 {
-                    szData[i] = 0;
-                }
+                    // Data receive                
+                    byte[] szData = e.Buffer;
+                    string strData = Encoding.Unicode.GetString(szData);
+                    string[] arrayStr = strData.Split(';');
+                    string sParsingData = arrayStr[0];
+                    string recvMsg = sParsingData.Replace("\0", "").Trim();
+                    DisplayText("<< " + clientSocket.RemoteEndPoint.ToString() + " >>" + recvMsg);
 
-                for (int i = 0; i < arrayStr.Length; i++)
+                    _DATA_PARSING(recvMsg);
+
+                    for (int i = 0; i < szData.Length; i++)
+                    {
+                        szData[i] = 0;
+                    }
+
+                    for (int i = 0; i < arrayStr.Length; i++)
+                    {
+                        arrayStr[i] = string.Empty;
+                    }
+
+                    e.SetBuffer(szData, 0, 1024);
+                    clientSocket.ReceiveAsync(e);
+                }
+                else
                 {
-                    arrayStr[i] = string.Empty;
-                }
+                    // Socket 재사용 유무
+                    clientSocket.Disconnect(false);
 
-                e.SetBuffer(szData, 0, 1024);
-                clientSocket.ReceiveAsync(e);
+                    // Client socket 리스트에서 해당 Socket 삭제
+                    m_ClientSocket.Remove(clientSocket);
+                    DisplayText_ServerStatus("<< " + clientSocket.RemoteEndPoint.ToString() + " >>" + " is disconnected");
+                }
             }
-            else
+            catch (SocketException ex)
             {
-                // Socket 재사용 유무
-                clientSocket.Disconnect(false);
-
-                // Client socket 리스트에서 해당 Socket 삭제
-                m_ClientSocket.Remove(clientSocket);
-                DisplayText_ServerStatus("<< " + clientSocket.RemoteEndPoint.ToString() + " >>" + " is disconnected");
-            }
+                MessageBox.Show($"Receive Completed : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
 
         private void DisplayText_ServerStatus(string text)
         {
-            if (richTextBoxServerStatus.InvokeRequired)
+            try
             {
-                richTextBoxServerStatus.BeginInvoke(new MethodInvoker(delegate
+                if (richTextBoxServerStatus.InvokeRequired)
                 {
-                    if (richTextBoxServerStatus.Lines.Length > 600)
+                    richTextBoxServerStatus.BeginInvoke(new MethodInvoker(delegate
                     {
-                        richTextBoxServerStatus.Clear();
-                    }
+                        if (richTextBoxServerStatus.Lines.Length > 600)
+                        {
+                            richTextBoxServerStatus.Clear();
+                        }
 
+                        richTextBoxServerStatus.AppendText("[ " + DateTime.Now.ToString() + "] " + text + Environment.NewLine);
+                        richTextBoxServerStatus.ScrollToCaret();
+                    }));
+                }
+                else
+                {
                     richTextBoxServerStatus.AppendText("[ " + DateTime.Now.ToString() + "] " + text + Environment.NewLine);
                     richTextBoxServerStatus.ScrollToCaret();
-                }));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                richTextBoxServerStatus.AppendText("[ " + DateTime.Now.ToString() + "] " + text + Environment.NewLine);
-                richTextBoxServerStatus.ScrollToCaret();
+                MessageBox.Show($"DisplayText ServerStatus : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void DisplayText(string text)
         {
-            if (richTextBoxRecvMsg.InvokeRequired)
+            try
             {
-                richTextBoxRecvMsg.BeginInvoke(new MethodInvoker(delegate
+                if (richTextBoxRecvMsg.InvokeRequired)
                 {
-                    if (richTextBoxRecvMsg.Lines.Length > 600)
+                    richTextBoxRecvMsg.BeginInvoke(new MethodInvoker(delegate
                     {
-                        richTextBoxRecvMsg.Clear();
-                    }
+                        if (richTextBoxRecvMsg.Lines.Length > 600)
+                        {
+                            richTextBoxRecvMsg.Clear();
+                        }
 
+                        richTextBoxRecvMsg.AppendText("[ " + DateTime.Now.ToString() + "] " + text + Environment.NewLine);
+                        richTextBoxRecvMsg.ScrollToCaret();
+                    }));
+                }
+                else
+                {
                     richTextBoxRecvMsg.AppendText("[ " + DateTime.Now.ToString() + "] " + text + Environment.NewLine);
                     richTextBoxRecvMsg.ScrollToCaret();
-                }));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                richTextBoxRecvMsg.AppendText("[ " + DateTime.Now.ToString() + "] " + text + Environment.NewLine);
-                richTextBoxRecvMsg.ScrollToCaret();
+                MessageBox.Show($"DisplayText : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -321,86 +371,105 @@ namespace WindowsFormsApp1_Server
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"DATA PARSING : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void _Show_Lamp_UI(string[] Red, string[] Yellow, string[] Green, string[] Conn_receivedValue)
         {
-            bool[] bUnloaderErr = new bool[5] { false,  false, false, false, false };
+            try
+            {
+                bool[] bUnloaderErr = new bool[5] { false, false, false, false, false };
 
-            // Unloader#1
-            this.labl_Unloader1.Invoke((MethodInvoker)delegate
-            {               
-                for (int i = 0; i < iEquipmentNo; i++)
-                {        
-                    /*
-                    if (Conn_receivedValue[i] != strConn_previousValue[i])
-                    {
-                        strConn_previousValue[i] = Conn_receivedValue[i];
-                        lastReceivedTime[i] = DateTime.Now; // 값이 바뀌면 마지막 수신 시간을 갱신
-                        m_UnloaderCommStateBox[i].Text = "communication";
-                        m_UnloaderCommStateBox[i].ForeColor = Color.Lime;
-                    }
-
-                    if ((DateTime.Now - lastReceivedTime[i]).TotalSeconds > 5)
-                    {
-                        // 5초 이상 값이 바뀌지 않으면 통신 끊어짐
-                        m_UnloaderCommStateBox[i].Text = "No communication";
-                        m_UnloaderCommStateBox[i].ForeColor = Color.Red;
-                    }
-                    */
-
-                    if (Red[i] == "True")
-                    {
-                        m_UnloaderStateBox[i].Text = "Error";
-
-                        if (m_UnloaderStateBox[i].BackColor != Color.Red)
-                            m_UnloaderStateBox[i].BackColor = Color.Red;
-                        else
-                            m_UnloaderStateBox[i].BackColor = Color.Silver;
-
-                        bUnloaderErr[i] = true;
-                    }
-                    else if (Yellow[i] == "True")
-                    {
-                        m_UnloaderStateBox[i].Text = "Idle";
-
-                        if (m_UnloaderStateBox[i].BackColor != Color.Yellow)
-                            m_UnloaderStateBox[i].BackColor = Color.Yellow;
-
-                        bUnloaderErr[i] = false;
-                    }
-                    else if (Green[i] == "True")
-                    {
-                        m_UnloaderStateBox[i].Text = "Auto Run";
-
-                        if (m_UnloaderStateBox[i].BackColor != Color.Lime)
-                            m_UnloaderStateBox[i].BackColor = Color.Lime;
-
-                        bUnloaderErr[i] = false;
-                    }
-                    else if ((Red[i] == "False") && (Yellow[i] == "False") && (Green[i] == "False"))
-                    {
-                        m_UnloaderStateBox[i].Text = "No signal";
-
-                        if (m_UnloaderStateBox[i].BackColor != Color.Silver)
-                            m_UnloaderStateBox[i].BackColor = Color.Silver;
-
-                        bUnloaderErr[i] = false;
-                    }
-                }
-
-                if ((bUnloaderErr[0]) || (bUnloaderErr[1]) || (bUnloaderErr[2]) || (bUnloaderErr[3]) || (bUnloaderErr[4]))
+                // Unloader#1
+                this.labl_Unloader1.Invoke((MethodInvoker)delegate
                 {
-                    Towerlamp_Set(1, 0, 0, 0, 0, 1);
-                }
-                else
-                {
-                    Towerlamp_Set(0, 0, 1, 0, 0, 0);
-                }
-                    
-            });            
+                    for (int i = 0; i < iEquipmentNo; i++)
+                    {
+                        /*
+                        if (Conn_receivedValue[i] != strConn_previousValue[i])
+                        {
+                            strConn_previousValue[i] = Conn_receivedValue[i];
+                            lastReceivedTime[i] = DateTime.Now; // 값이 바뀌면 마지막 수신 시간을 갱신                        
+                        }
+
+                        if ((DateTime.Now - lastReceivedTime[i]).TotalSeconds > 5)
+                        {
+                            // 5초 이상 값이 바뀌지 않으면 통신 끊어짐
+                            m_UnloaderStateBox[i].Text = "No communication";
+                            m_UnloaderStateBox[i].ForeColor = Color.Red;
+                        }
+                        */
+
+                        if (Red[i] == "True")
+                        {
+                            m_UnloaderStateBox[i].Text = "Error";
+
+                            if (m_UnloaderStateBox[i].BackColor != Color.Red)
+                                m_UnloaderStateBox[i].BackColor = Color.Red;
+                            else
+                                m_UnloaderStateBox[i].BackColor = Color.Silver;
+
+                            bUnloaderErr[i] = true;
+                        }
+                        else if (Yellow[i] == "True")
+                        {
+                            m_UnloaderStateBox[i].Text = "Idle";
+
+                            if (m_UnloaderStateBox[i].BackColor != Color.Yellow)
+                                m_UnloaderStateBox[i].BackColor = Color.Yellow;
+
+                            bUnloaderErr[i] = false;
+                        }
+                        else if (Green[i] == "True")
+                        {
+                            m_UnloaderStateBox[i].Text = "Auto Run";
+
+                            if (m_UnloaderStateBox[i].BackColor != Color.Lime)
+                                m_UnloaderStateBox[i].BackColor = Color.Lime;
+
+                            bUnloaderErr[i] = false;
+                        }
+                        else if ((Red[i] == "False") && (Yellow[i] == "False") && (Green[i] == "False"))
+                        {
+                            m_UnloaderStateBox[i].Text = "No signal";
+
+                            if (m_UnloaderStateBox[i].BackColor != Color.Silver)
+                                m_UnloaderStateBox[i].BackColor = Color.Silver;
+
+                            bUnloaderErr[i] = false;
+                        }
+                    }
+
+                    if ((bUnloaderErr[0]) || (bUnloaderErr[1]) || (bUnloaderErr[2]) || (bUnloaderErr[3]) || (bUnloaderErr[4]))
+                    {
+                        if (!bLampSet)
+                        {
+                            Towerlamp_Set(1, 0, 0, 0, 0, 1);
+                            bLampSet = true;
+
+                            // Form이 작업표시줄로 내려가 있거나, 다른 프로그램 뒤에 가려져 있을 때 활성화                            
+                            WindowState = FormWindowState.Normal;
+                            TopMost = true;
+                        }
+                    }
+                    else
+                    {
+                        if (bLampSet)
+                        {
+                            Towerlamp_Set(0, 0, 1, 0, 0, 0);
+                            bLampSet = false;                            
+                        }
+
+                        if (TopMost != false)
+                            TopMost = false;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Show Lamp UI : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }                        
         }
 
         private void Towerlamp_Set(byte Red, byte Yellow, byte Green, byte Blue, byte White, byte Sound)
@@ -439,13 +508,14 @@ namespace WindowsFormsApp1_Server
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"btnSave Click : {ex.Message}", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnBuzzerOff_Click(object sender, EventArgs e)
         {
-            Towerlamp_Set(0, 0, 0, 0, 0, 0);
+            Towerlamp_Set(0, 0, 1, 0, 0, 0);
+            bLampSet = false;
         }
     }
 }
