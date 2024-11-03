@@ -32,16 +32,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBoxServerStatus = new System.Windows.Forms.RichTextBox();
             this.richTextBoxRecvMsg = new System.Windows.Forms.RichTextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelUnloader1Asset = new System.Windows.Forms.Label();
             this.labl_Unloader1 = new System.Windows.Forms.Label();
             this.labl_Unloader2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelUnloader2Asset = new System.Windows.Forms.Label();
             this.labl_Unloader3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelUnloader3Asset = new System.Windows.Forms.Label();
             this.labl_Unloader4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.labelUnloader4Asset = new System.Windows.Forms.Label();
             this.labl_Unloader5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.labelUnloader5Asset = new System.Windows.Forms.Label();
             this.textBoxUnloader1 = new System.Windows.Forms.TextBox();
             this.textBoxUnloader2 = new System.Windows.Forms.TextBox();
             this.textBoxUnloader3 = new System.Windows.Forms.TextBox();
@@ -95,16 +95,16 @@
             this.richTextBoxRecvMsg.TabIndex = 12;
             this.richTextBoxRecvMsg.Text = "";
             // 
-            // label3
+            // labelUnloader1Asset
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Navy;
-            this.label3.Location = new System.Drawing.Point(12, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(222, 37);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "K2022-1101253";
+            this.labelUnloader1Asset.AutoSize = true;
+            this.labelUnloader1Asset.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUnloader1Asset.ForeColor = System.Drawing.Color.Navy;
+            this.labelUnloader1Asset.Location = new System.Drawing.Point(12, 9);
+            this.labelUnloader1Asset.Name = "labelUnloader1Asset";
+            this.labelUnloader1Asset.Size = new System.Drawing.Size(222, 37);
+            this.labelUnloader1Asset.TabIndex = 19;
+            this.labelUnloader1Asset.Text = "K2022-1101253";
             // 
             // labl_Unloader1
             // 
@@ -132,16 +132,16 @@
             this.labl_Unloader2.Text = "--";
             this.labl_Unloader2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label4
+            // labelUnloader2Asset
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Navy;
-            this.label4.Location = new System.Drawing.Point(12, 168);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(222, 37);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "K2023-1100445";
+            this.labelUnloader2Asset.AutoSize = true;
+            this.labelUnloader2Asset.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUnloader2Asset.ForeColor = System.Drawing.Color.Navy;
+            this.labelUnloader2Asset.Location = new System.Drawing.Point(12, 168);
+            this.labelUnloader2Asset.Name = "labelUnloader2Asset";
+            this.labelUnloader2Asset.Size = new System.Drawing.Size(222, 37);
+            this.labelUnloader2Asset.TabIndex = 21;
+            this.labelUnloader2Asset.Text = "K2023-1100445";
             // 
             // labl_Unloader3
             // 
@@ -156,16 +156,16 @@
             this.labl_Unloader3.Text = "--";
             this.labl_Unloader3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label5
+            // labelUnloader3Asset
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Navy;
-            this.label5.Location = new System.Drawing.Point(5, 327);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(222, 37);
-            this.label5.TabIndex = 23;
-            this.label5.Text = "K2023-1100333";
+            this.labelUnloader3Asset.AutoSize = true;
+            this.labelUnloader3Asset.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUnloader3Asset.ForeColor = System.Drawing.Color.Navy;
+            this.labelUnloader3Asset.Location = new System.Drawing.Point(5, 327);
+            this.labelUnloader3Asset.Name = "labelUnloader3Asset";
+            this.labelUnloader3Asset.Size = new System.Drawing.Size(222, 37);
+            this.labelUnloader3Asset.TabIndex = 23;
+            this.labelUnloader3Asset.Text = "K2023-1100333";
             // 
             // labl_Unloader4
             // 
@@ -180,16 +180,16 @@
             this.labl_Unloader4.Text = "--";
             this.labl_Unloader4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // labelUnloader4Asset
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Navy;
-            this.label6.Location = new System.Drawing.Point(12, 486);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(222, 37);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "K2023-1100334";
+            this.labelUnloader4Asset.AutoSize = true;
+            this.labelUnloader4Asset.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUnloader4Asset.ForeColor = System.Drawing.Color.Navy;
+            this.labelUnloader4Asset.Location = new System.Drawing.Point(12, 486);
+            this.labelUnloader4Asset.Name = "labelUnloader4Asset";
+            this.labelUnloader4Asset.Size = new System.Drawing.Size(222, 37);
+            this.labelUnloader4Asset.TabIndex = 25;
+            this.labelUnloader4Asset.Text = "K2023-1100334";
             // 
             // labl_Unloader5
             // 
@@ -204,16 +204,16 @@
             this.labl_Unloader5.Text = "--";
             this.labl_Unloader5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label7
+            // labelUnloader5Asset
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Navy;
-            this.label7.Location = new System.Drawing.Point(12, 645);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(222, 37);
-            this.label7.TabIndex = 27;
-            this.label7.Text = "K2023-1100292";
+            this.labelUnloader5Asset.AutoSize = true;
+            this.labelUnloader5Asset.Font = new System.Drawing.Font("Nirmala UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUnloader5Asset.ForeColor = System.Drawing.Color.Navy;
+            this.labelUnloader5Asset.Location = new System.Drawing.Point(12, 645);
+            this.labelUnloader5Asset.Name = "labelUnloader5Asset";
+            this.labelUnloader5Asset.Size = new System.Drawing.Size(222, 37);
+            this.labelUnloader5Asset.TabIndex = 27;
+            this.labelUnloader5Asset.Text = "K2023-1100292";
             // 
             // textBoxUnloader1
             // 
@@ -303,15 +303,15 @@
             this.Controls.Add(this.textBoxUnloader2);
             this.Controls.Add(this.textBoxUnloader1);
             this.Controls.Add(this.labl_Unloader5);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.labelUnloader5Asset);
             this.Controls.Add(this.labl_Unloader4);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.labelUnloader4Asset);
             this.Controls.Add(this.labl_Unloader3);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelUnloader3Asset);
             this.Controls.Add(this.labl_Unloader2);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.labelUnloader2Asset);
             this.Controls.Add(this.labl_Unloader1);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labelUnloader1Asset);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.richTextBoxServerStatus);
@@ -332,16 +332,16 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBoxServerStatus;
         private System.Windows.Forms.RichTextBox richTextBoxRecvMsg;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelUnloader1Asset;
         private System.Windows.Forms.Label labl_Unloader1;
         private System.Windows.Forms.Label labl_Unloader2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelUnloader2Asset;
         private System.Windows.Forms.Label labl_Unloader3;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelUnloader3Asset;
         private System.Windows.Forms.Label labl_Unloader4;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelUnloader4Asset;
         private System.Windows.Forms.Label labl_Unloader5;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelUnloader5Asset;
         private System.Windows.Forms.TextBox textBoxUnloader1;
         private System.Windows.Forms.TextBox textBoxUnloader2;
         private System.Windows.Forms.TextBox textBoxUnloader3;

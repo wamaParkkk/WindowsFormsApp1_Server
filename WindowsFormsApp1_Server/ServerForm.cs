@@ -37,6 +37,7 @@ namespace WindowsFormsApp1_Server
         private byte[] szData;
 
         private const int iEquipmentNo = 5;
+        private string[] strAssetNo;
         private Label[] m_UnloaderStateBox;        
 
         // Unloader의 Towerlamp 신호를 저장할 변수 (5대)
@@ -55,6 +56,7 @@ namespace WindowsFormsApp1_Server
         {
             InitializeComponent();
 
+            strAssetNo = new string[iEquipmentNo];
             m_UnloaderStateBox = new Label[iEquipmentNo] { labl_Unloader1, labl_Unloader2, labl_Unloader3, labl_Unloader4, labl_Unloader5 };            
 
             _Init_Server();
@@ -125,6 +127,29 @@ namespace WindowsFormsApp1_Server
             {
                 // Ini file read
                 StringBuilder sbUnloader = new StringBuilder();
+
+                // Asset No
+                GetPrivateProfileString("Unloader_1", "AssetNo", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                strAssetNo[0] = sbUnloader.ToString();
+                labelUnloader1Asset.Text = strAssetNo[0];
+
+                GetPrivateProfileString("Unloader_2", "AssetNo", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                strAssetNo[1] = sbUnloader.ToString();
+                labelUnloader2Asset.Text = strAssetNo[1];
+
+                GetPrivateProfileString("Unloader_3", "AssetNo", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                strAssetNo[2] = sbUnloader.ToString();
+                labelUnloader3Asset.Text = strAssetNo[2];
+
+                GetPrivateProfileString("Unloader_4", "AssetNo", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                strAssetNo[3] = sbUnloader.ToString();
+                labelUnloader4Asset.Text = strAssetNo[3];
+
+                GetPrivateProfileString("Unloader_5", "AssetNo", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
+                strAssetNo[4] = sbUnloader.ToString();
+                labelUnloader5Asset.Text = strAssetNo[4];
+
+                // Description
                 GetPrivateProfileString("Unloader_1", "Description", "", sbUnloader, sbUnloader.Capacity, string.Format("{0}{1}", ConfigurePath, "Configure.ini"));
                 textBoxUnloader1.Text = sbUnloader.ToString();
                 
@@ -329,35 +354,35 @@ namespace WindowsFormsApp1_Server
                 if (sWords.Length != 5)
                     return;
 
-                if (sWords[0].Equals("K2022-1101253", StringComparison.InvariantCultureIgnoreCase))
+                if (sWords[0].Equals(strAssetNo[0], StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[0] = sWords[1];      // Red
                     strYellow[0] = sWords[2];   // Yellow
                     strGreen[0] = sWords[3];    // Green
                     strConn_receivedValue[0] = sWords[4];   // 통신 여부
                 }
-                else if (sWords[0].Equals("K2023-1100445", StringComparison.InvariantCultureIgnoreCase))
+                else if (sWords[0].Equals(strAssetNo[1], StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[1] = sWords[1];      // Red
                     strYellow[1] = sWords[2];   // Yellow
                     strGreen[1] = sWords[3];    // Green
                     strConn_receivedValue[1] = sWords[4];   // 통신 여부
                 }
-                else if (sWords[0].Equals("K2023-1100333", StringComparison.InvariantCultureIgnoreCase))
+                else if (sWords[0].Equals(strAssetNo[2], StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[2] = sWords[1];      // Red
                     strYellow[2] = sWords[2];   // Yellow
                     strGreen[2] = sWords[3];    // Green
                     strConn_receivedValue[2] = sWords[4];   // 통신 여부
                 }
-                else if (sWords[0].Equals("K2023-1100334", StringComparison.InvariantCultureIgnoreCase))
+                else if (sWords[0].Equals(strAssetNo[3], StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[3] = sWords[1];      // Red
                     strYellow[3] = sWords[2];   // Yellow
                     strGreen[3] = sWords[3];    // Green
                     strConn_receivedValue[3] = sWords[4];   // 통신 여부
                 }
-                else if (sWords[0].Equals("K2023-1100292", StringComparison.InvariantCultureIgnoreCase))
+                else if (sWords[0].Equals(strAssetNo[4], StringComparison.InvariantCultureIgnoreCase))
                 {
                     strRed[4] = sWords[1];      // Red
                     strYellow[4] = sWords[2];   // Yellow
