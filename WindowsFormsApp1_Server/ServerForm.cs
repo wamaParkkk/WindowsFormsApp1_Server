@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1_Server
@@ -51,7 +52,7 @@ namespace WindowsFormsApp1_Server
         private DateTime[] lastReceivedTime;
 
         private bool bLampSet;
-
+        
         public ServerForm()
         {
             InitializeComponent();
